@@ -41,8 +41,7 @@ which generates a C file to standard output.
 
 - To generate > compile > run your_stuff, but with a given name :
 
-        ./clua examples-lua/factorial.lua factorial_lua2c
-        #=> Now you will find your `factorial_lua2c` in same folder with `clua`
+        ./clua examples-lua/factorial.lua factorial
 
 
 #### Licensing
