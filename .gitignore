@@ -1,1 +1,7 @@
+# ignore built executable
+lua2cc
+lua2cc.c
+# ignore macOS stuff
 .DS_Store
+# ignore lua 5.1.5 package
+*.tar.gz

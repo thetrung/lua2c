@@ -12,12 +12,13 @@ popd > /dev/null
 
 # You may need to change these variables:
 LUA=lua
-CC=gcc
-CFLAGS="-O3 -fomit-frame-pointer -DNDEBUG -Wall -Ilua/src"
+CC=clang
+XCODE_PATH="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
+CFLAGS="-O3 -fomit-frame-pointer -DNDEBUG -Wall -Isrc -I${XCODE_PATH}"
 #CFLAGS="-O2 -DNDEBUG -Wall -Ilua/src"
 #CFLAGS=-g
-LFLAGS="-Llua/src -llua"
-LUA2C="${LUA} $CWD/lua2c.lua"
+LFLAGS="-Lsrc -llua5.1"
+LUA2C="${LUA} lua2cc.lua"
 #LUA2C="./lua2c"
 
 COMPILEONLY=
@@ -41,19 +42,30 @@ fi
 
 LUAFILE=$1
 FILENAME=${LUAFILE%.*}
-CFILE=${FILENAME}.c
 
-LUA_PATH=$CWD/lib/?.lua ${LUA2C} ${LUAFILE} > ${CFILE} || exit 1
+if ["$2" = ""] 
+then 
+CFILE=${FILENAME}.c
+OUTPUT="${FILENAME}"
+else 
+CFILE=$2.c
+OUTPUT="$2"
+fi 
+
+LUA_PATH=$CWD/?.lua ${LUA2C} ${LUAFILE} > ${CFILE} || exit 1
 if [ "$COMPILEONLY" = "2" ]
 then
   exit 0
 fi
 
-${CC} ${CFLAGS} ${CFILE} -o ${FILENAME} ${LFLAGS} || exit 1
+
+${CC} ${CFLAGS} ${CFILE} -o ${OUTPUT} ${LFLAGS} || exit 1
+
+
 if [ "$COMPILEONLY" = "1" ]
 then
   exit 0
 fi
 
 shift
-./${FILENAME} $@
+./${OUTPUT} $@

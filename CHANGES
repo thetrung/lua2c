@@ -1,3 +1,6 @@
+2020-16-08
+  refactor to be able to build stuffs with luac 5.1.5
+
 2009-03-13
   upgraded to metalua 0.5 from git
 
