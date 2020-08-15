@@ -47,8 +47,8 @@ which generates a C file to standard output.
 All I can say is, pretty poor. You may run this on your own to see.
 For example, run `fib.lua` in example folder, you will see :
 
-        - LuaJIT  : ~28x
-        - Lua@5.1 : ~2.4x
+        - LuaJIT  : 28x
+        - Lua@5.1 : 2.4x
         - Lua2C.  : 1x
 
 #### Licensing
