@@ -46,15 +46,15 @@ local table        = _G.table
 -- package.path = './lib/?.lua;' .. package.path
 
 -- note: includes gg/mlp Lua parsing Libraries taken from Metalua.
-require "lexer"
-require "gg"
-require "mlp_lexer"
-require "mlp_misc"
-require "mlp_table"
-require "mlp_meta"
-require "mlp_expr"
-require "mlp_stat"
-require "mlp_ext"
+require "lib.lexer"
+require "lib.gg"
+require "lib.mlp_lexer"
+require "lib.mlp_misc"
+require "lib.mlp_table"
+require "lib.mlp_meta"
+require "lib.mlp_expr"
+require "lib.mlp_stat"
+require "lib.mlp_ext"
 _G.mlc = {} -- make gg happy
 local mlp = assert(_G.mlp)
 local A2C = require "lua2c.ast2cast"
