@@ -43,6 +43,13 @@ which generates a C file to standard output.
 
         ./clua examples-lua/factorial.lua factorial
 
+### Performance
+All I can say is, pretty poor. You may run this on your own to see.
+For example, run `fib.lua` in example folder, you will see :
+
+        - LuaJIT  : ~28x
+        - Lua@5.1 : ~2.4x
+        - Lua2C.  : 1x
 
 #### Licensing
 *(c) 2008 David Manura.  Licensed under the same terms as Lua (MIT
