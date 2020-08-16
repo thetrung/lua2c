@@ -28,20 +28,30 @@ which generates a C file to standard output.
 **- With `clua` :**
 - To generate C source file > compile with `clang` > and run it : 
 
-        ./clua -C test/bisect.lua
-
-- To generate C source file > compile with `clang` :
-
-        ./clua -c lua2c.lua               # compile lua2c binary
-        ./lua2c examples-lua/bisect.lua   # test
-
-- To generate only C source file :
-
-        ./clua -C lua2c.lua lua2cc.c
-
+        ./clua hello.lua
+        
 - To generate > compile > run your_stuff, but with a given name :
 
-        ./clua examples-lua/factorial.lua factorial
+        ./clua factorial.lua fac
+
+- To generate C source file :
+
+        ./clua --source factorial.lua               
+        #=> factorial.c
+
+- To compile the generated C source file :
+
+        ./clua --compile factorial.lua
+        #=> factorial binary
+        
+        ./factorial 
+
+**NOTE**
+I want to separate compile/source process to test my hack and see
+how much the speed may be improved if we can transform lua->C function.
+As in recent `fib.lua` test, the speed of executing `fib` as C native 
+function could improve speed by ~4.5X compare to LuaJIT and ~50X compare
+to Lua51.
 
 ### Performance
 All I can say is, pretty poor. You may run this on your own to see.
