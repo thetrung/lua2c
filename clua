@@ -14,7 +14,7 @@ popd > /dev/null
 LUA=lua
 CC=clang
 XCODE_PATH="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
-CFLAGS="-O3 -fomit-frame-pointer -DNDEBUG -Wall -Isrc -I${XCODE_PATH}"
+CFLAGS="-O3 -fomit-frame-pointer -DNDEBUG -Wall -Isrc -I${XCODE_PATH} -Wno-nullability-completeness"
 #CFLAGS="-O2 -DNDEBUG -Wall -Ilua/src"
 #CFLAGS=-g
 LFLAGS="-Lsrc -llua5.1"
@@ -22,11 +22,11 @@ LUA2C="${LUA} lua2cc.lua"
 #LUA2C="./lua2c"
 
 COMPILEONLY=
-if [ "$1" = "-c" ]
+if [ "$1" = "--compile" ]
 then
   COMPILEONLY=1
   shift
-elif [ "$1" = "-C" ]
+elif [ "$1" = "--source" ]
 then
   COMPILEONLY=2
   shift
@@ -35,37 +35,40 @@ if [ "$1" = "" ]
 then
   echo "usage: clua [options] [filename.lua] ..."
   echo "  options:"
-  echo "    -c   compile only (no run)"
-  echo "    -C   generate C source only (no compile or run)"
+  echo "  nothing mean to make source + compile + run"
+  echo "    --compile  compile only (no run)"
+  echo "    --source   generate C source only (no compile or run)"
   exit 1
 fi
 
 LUAFILE=$1
 FILENAME=${LUAFILE%.*}
 
-if ["$2" = ""] 
+if [ "$2" = "" ] 
 then 
-CFILE=${FILENAME}.c
-OUTPUT="${FILENAME}"
+  CFILE="${FILENAME}.c"
+  OUTPUT="${FILENAME}"
 else 
-CFILE=$2.c
-OUTPUT="$2"
+  CFILE="$2.c"
+  OUTPUT="$2"
+  shift
 fi 
 
-LUA_PATH=$CWD/?.lua ${LUA2C} ${LUAFILE} > ${CFILE} || exit 1
 if [ "$COMPILEONLY" = "2" ]
 then
+  LUA_PATH=$CWD/?.lua ${LUA2C} ${LUAFILE} > ${CFILE} || exit 1
   exit 0
 fi
-
-
-${CC} ${CFLAGS} ${CFILE} -o ${OUTPUT} ${LFLAGS} || exit 1
 
 
 if [ "$COMPILEONLY" = "1" ]
 then
+  ${CC} ${CFLAGS} ${CFILE} -o ${OUTPUT} ${LFLAGS} || exit 1
   exit 0
 fi
+
+LUA_PATH=$CWD/?.lua ${LUA2C} ${LUAFILE} > ${CFILE} || exit 1
+${CC} ${CFLAGS} ${CFILE} -o ${OUTPUT} ${LFLAGS} || exit 1
 
 shift
 ./${OUTPUT} $@
