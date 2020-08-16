@@ -3,19 +3,14 @@ converts Lua 5.1 source code to C API call code.
 
 ### Description
 
-I forked from `davidm/lua2c` and make it work with `clang`.
-Please change this in `clua` script to fit your system.
+I forked from [davidm/lua2c](https://github.com/davidm/lua2c) and make it work with `clang`.
+Please change this in [clua](https://github.com/thetrung/lua2c/blob/master/clua) script to fit your system.
 including the `XCODE_PATH` for C header.
 
 This tool converts *Lua source file >> C source file*
 written **in terms of Lua C API calls**. Why I must emphasize this ?
 Because it's far from Lua->C, indeed. A lot of work is needed 
-to bring it into true meaning of `lua2c`.
-
-The compiler is written entirely in Lua, and no build/install is needed. 
-
-Original work was from [davidm/lua2c](https://github.com/davidm/lua2c)
-please visit for any related information or License.
+to bring it into true meaning of `lua2c`. The compiler is written entirely in Lua, and no build/install is needed. 
 
 ### Usage
 
