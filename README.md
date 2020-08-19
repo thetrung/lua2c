@@ -48,6 +48,15 @@ As in recent `fib.lua` test, the speed of executing `fib` as C native
 function could improve speed by ~4.5X compare to LuaJIT and ~50X compare
 to Lua51.
 
+sample fib, counting with `usr/local/time` :
+
+    luajit -- 0.006 (jit-ed )
+    luajit -- 0.014 (1st run) 
+    lua5.1 -- 0.014
+    fe     -- 0.021
+
+fe from [here](https://github.com/rxi/fe)
+
 ### Performance
 All I can say is, pretty poor. You may run this on your own to see.
 For example, run `fib.lua` in example folder, you will see :
